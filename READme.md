@@ -37,17 +37,22 @@ This project demonstrates the integration of Kubernetes with AI-driven workload 
 
 ### Local Cluster Setup
 
-To set up a Kubernetes cluster on local machines using **Minikube**:
+To set up a Kubernetes cluster on local machines using **KUBECTL**:
 
 ```bash
-# Install Minikube
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo mv minikube-linux-amd64 /usr/local/bin/minikube
-sudo chmod +x /usr/local/bin/minikube
-
-# Start Minikube cluster with Calico CNI
-minikube start --cni=calico
-
-# Verify Minikube cluster status
+# Run the master script
+bash <script-name>.sh master
+```
+```bash
+# Run the worker script
+bash <script-name>.sh worker "kubeadm join 192.168.1.100:6443 --token abc123.456xyz789 --discovery-token-ca-cert-hash sha256:abcdef123456..."
+```
+```bash
+# Check the nodes
 kubectl get nodes
+```
+```bash
+# Test the Deployemnt
+kubectl create deployment nginx --image=nginx
+kubectl expose deployment nginx --type=NodePort --port=80
 ```
